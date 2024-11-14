@@ -49,18 +49,18 @@ namespace Bimeh.Infrastructur
                 return false;
             }
 
-            // جستجو برای کاربر
+        
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
             {
                 return false;
             }
 
-            // جستجو برای درخواست قبلی که عنوان مشابه دارد
+            
             var requestInsurance = await _context.Requests.FirstOrDefaultAsync(x => x.RequestTitle == request.TitleRequst);
             if (requestInsurance != null)
             {
-                // بررسی هر پوشش بیمه‌ای
+               
                 for (var i = 0; i < request.InsuranceCoverage.Length; i++)
                 {
                     var coverageTitle = request.InsuranceCoverage[i];
@@ -68,21 +68,21 @@ namespace Bimeh.Infrastructur
 
                     if (insuranceCoverage == null)
                     {
-                        // اگر پوشش بیمه‌ای پیدا نشد
+                        
                         return false;
                     }
 
-                    // ثبت درخواست جدید
+                    
                     var Request = new Request
                     {
                         RequestTitle = request.TitleRequst,
                         DateCreated = DateTime.Now,
-                        InsuranceCoverageId = insuranceCoverage.Id,  // استفاده از ID پوشش بیمه‌ای
+                        InsuranceCoverageId = insuranceCoverage.Id,  
                         UserId = user.Id,
                         Price = request.Price
                     };
 
-                    // اضافه کردن درخواست به پایگاه داده
+                    
                     _context.Requests.Add(Request);
                     await _context.SaveChangesAsync();
                 }
@@ -93,13 +93,6 @@ namespace Bimeh.Infrastructur
             return false;
         }
 
-        public async Task<List<Request>> GetAllRequest(int id)
-        {   await _context.SaveChangesAsync();
-            return new List<Request>();
-        }
-        public async Task<Request> GetSelectedRequest(int trackingNumber)
-        {   await _context.SaveChangesAsync();
-            return new Request();
-        }
+      
     }
 }

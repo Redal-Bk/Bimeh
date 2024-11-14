@@ -10,7 +10,7 @@ namespace Bimeh.APIs
     [Route("api/[controller]")]
     [ApiController]
     public class MainController : ControllerBase
-    {
+    {   //نمونه کار تدبیر
         private readonly IManage _manage;
         private readonly BimehContext _context;
         public MainController(IManage manage,BimehContext context)
